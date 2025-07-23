@@ -1,6 +1,6 @@
 class CommentAdapter
   COMMENT_REGEXP = /\/merge to/
-  BRANCH_REGEXP = /\merge to ([0-9a-zA-Z'-\/]+)/
+  BRANCH_REGEXP = /\/merge to ([0-9a-zA-Z\-\_\.\/]+)/
   COMMAND_NAME = "/merge"
 
   def initialize(github_event)
@@ -19,9 +19,16 @@ class CommentAdapter
   end
 
   def match_branch_name(str)
-    arr = str.split(/\s+/)
-    index = arr.index(COMMAND_NAME)
-    arr[index + 2]
+    if str =~ BRANCH_REGEXP
+      # Extract the branch name from the regex match
+      $1
+    else
+      # Use the old method as fallback
+      arr = str.split(/\s+/)
+      index = arr.index(COMMAND_NAME)
+      return nil unless index && arr[index + 2]
+      # Sanitize the branch name to prevent command injection
+      arr[index + 2].gsub(/[^0-9a-zA-Z\-\_\.\/]/, '')
+    end
   end
-
 end

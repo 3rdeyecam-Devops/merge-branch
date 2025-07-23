@@ -1,14 +1,18 @@
-class MergeBrachService
+class MergeBranchService
   attr_reader :inputs, :event
 
   TYPE_LABELED = "labeled".freeze
   TYPE_NOW = "now".freeze
 
-  def self.validate_inputs!(target_branch:, type:, label_name:)
+  def self.validate_inputs!(inputs)
+    type = inputs[:type]
+    target_branch = inputs[:target_branch]
+    label_name = inputs[:label_name]
+    
     raise "Error: Invalid type" unless [TYPE_LABELED, TYPE_NOW].include?(type)
-    raise "Error: Empty target branch"unless target_branch
+    raise "Error: Empty target branch" unless target_branch
     if type == TYPE_LABELED
-      raise " Error: Empty target label name" unless label_name
+      raise "Error: Empty target label name" unless label_name
     end
   end
 

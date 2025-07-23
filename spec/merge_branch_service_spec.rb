@@ -1,13 +1,13 @@
 require_relative '../lib/services/merge_branch_service'
 
-describe MergeBrachService do
+describe MergeBranchService do
   context "with invalid type" do
     let(:inputs) {
-      { type: 'invalid_type', event: {}, target_branch: 'develop' }
+      { type: 'invalid_type', target_branch: 'develop' }
     }
 
     it ".validate_inputs!" do
-      expect{ MergeBrachService.validate_inputs!(inputs) }.to raise_error()
+      expect{ MergeBranchService.validate_inputs!(inputs) }.to raise_error()
     end
   end
 
@@ -21,7 +21,7 @@ describe MergeBrachService do
 
     context "with valid inputs" do
       it ".validate_inputs!" do
-        expect{ MergeBrachService.validate_inputs!(inputs) }.to_not raise_error()
+        expect{ MergeBranchService.validate_inputs!(inputs) }.to_not raise_error()
       end
     end
 
@@ -29,7 +29,7 @@ describe MergeBrachService do
       let(:label_name) { nil }
 
       it ".validate_inputs!" do
-        expect{ MergeBrachService.validate_inputs!(inputs) }.to raise_error()
+        expect{ MergeBranchService.validate_inputs!(inputs) }.to raise_error()
       end
     end
 
@@ -37,7 +37,7 @@ describe MergeBrachService do
       let(:event) { { 'action' => 'labeled', 'label' => { 'name' => 'other label' } } }
 
       it "#valid?" do
-        service = MergeBrachService.new(inputs, event)
+        service = MergeBranchService.new(inputs, event)
         expect(service.valid?).to eq(false)
       end
     end
