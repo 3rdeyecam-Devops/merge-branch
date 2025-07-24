@@ -28,7 +28,7 @@ class CommentAdapter
       index = arr.index(COMMAND_NAME)
       return nil unless index && arr[index + 2]
       # Sanitize the branch name to prevent command injection
-      arr[index + 2].gsub(/[^0-9a-zA-Z\-_.\/]/, '')
+      arr[index + 2].gsub(/[^0-9a-zA-Z_.\/\-]/, '')
     end
   end
 end
