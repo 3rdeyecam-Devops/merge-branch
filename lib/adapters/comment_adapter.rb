@@ -1,6 +1,6 @@
 class CommentAdapter
   COMMENT_REGEXP = /\/merge to/
-  BRANCH_REGEXP = /\/merge to ([0-9a-zA-Z_.\/\-]+)/
+  BRANCH_REGEXP = /\/merge to ([0-9a-zA-Z_.\/-]+)/
   COMMAND_NAME = "/merge"
 
   def initialize(github_event)
